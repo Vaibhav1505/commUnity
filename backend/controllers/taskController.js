@@ -16,7 +16,7 @@ exports.fetch_tasks = async (req, res, next) => {
                 startDate: task.startdate ? new Date(task.startdate).toISOString() : null, // Ensure valid date
                 lastDate: task.lastdate ? new Date(task.lastdate).toISOString() : null,
                 status: task.status,
-                participants: task.assigned_to ? task.assigned_to.replace(/^{|}$/g, '').split(',') : []
+                participants: task.assigned_to  || []
             }))
         });
     } catch (error) {
@@ -30,15 +30,23 @@ exports.fetch_tasks = async (req, res, next) => {
 }
 
 
+
 exports.create_task = async (req, res) => {
     const { title, description, assignedTo, startDate, lastDate } = req.body;
 
-    // Validate the incoming data
     if (!title || !description || !Array.isArray(assignedTo) || assignedTo.length === 0 || !startDate || !lastDate) {
         return res.status(400).json({ error: "All fields are required and assignedTo must be an array." });
     }
 
     try {
+        const usersQuery = await client.query("SELECT * FROM users WHERE id = ANY($1)", [assignedTo]);
+        if (usersQuery.rows.length !== assignedTo.length) {
+            return res.status(404).json({
+                success: false,
+                message: "One or more users not found"
+            });
+        }
+
         const startDateISO = new Date(startDate).toISOString();
         const lastDateISO = new Date(lastDate).toISOString();
 
@@ -72,10 +80,43 @@ exports.create_task = async (req, res) => {
     }
 };
 
-exports.update_status = async (req, res, next) => {
+exports.add_participants = async (req, res, next) => {
+    const { taskId } = req.params
+    const { email } = req.body
+
+    if (!taskId || !email || !Array.isArray(email) || email.length === 0) {
+        return res.status(400).json({
+            success: false,
+            message: "Task ID and emails are required. Emails must be an array."
+        });
+    }
+    try {
+        const checkTaskExistQuery = await client.query("SELECT * FROM tasks WHERE task_id = $1", [taskId]);
+        if (checkTaskExistQuery.length === 0) {
+            res.status(404).json({
+                success: false,
+                message: "No Task Found with TaskID:", taskId
+            })
+        }
+    } catch (error) {
+        console.error("Error in adding Participants");
+        res.status(500).json({
+            success: false,
+            message: "Participants not added Successfully",
+            error: error.message
+        })
+    }
+}
+
+exports.update_task_details = async (req, res, next) => {
     const { taskId } = req.params;
 
-    // Check if taskId is provided
+
+}
+
+exports.update_status = async (req, res, next) => {
+    const { taskId } = req.params;
+    const { status } = req.body;
     if (!taskId) {
         return res.status(400).json({
             success: "false",
@@ -84,13 +125,12 @@ exports.update_status = async (req, res, next) => {
     }
 
     try {
-  
+
         const statusUpdateQuery = await client.query(
-            'UPDATE tasks SET status = $1 WHERE task_id = $2 RETURNING *', 
-            ['Complete', taskId]
+            'UPDATE tasks SET status = $1 WHERE task_id = $2 RETURNING *',
+            [status, taskId]
         );
 
-        // Check if any rows were updated
         if (statusUpdateQuery.rowCount === 0) {
             return res.status(404).json({
                 success: "false",
@@ -101,7 +141,7 @@ exports.update_status = async (req, res, next) => {
         res.status(200).json({
             success: "true",
             message: "Status updated to 'Complete'",
-            task: statusUpdateQuery.rows[0] // Return the updated task
+            task: statusUpdateQuery.rows[0]
         });
     } catch (error) {
         console.error('Unable to change Task Status:', error);
@@ -113,8 +153,9 @@ exports.update_status = async (req, res, next) => {
     }
 };
 
-exports.delete_task = async (req, res, next) => {
-    const { taskId } = req.params;
+exports.delete_task_by_id = async (req, res, next) => {
+   
+    const { taskId } = req.body;
 
     if (!taskId) {
         res.status(404).json({
@@ -123,7 +164,6 @@ exports.delete_task = async (req, res, next) => {
         })
     }
 
-    // console.log(`Recieved taskID as Parameter:`+req.params)
     try {
         const deleteTaskQuery = await client.query('DELETE FROM tasks WHERE task_id = $1 RETURNING *', [taskId]);
 

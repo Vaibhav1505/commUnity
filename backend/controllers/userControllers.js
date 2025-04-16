@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const { client } = require('../database/databaseConnection')
+const jwt = require("jsonwebtoken")
 
 exports.fetch_users = async function (req, res, next) {
 
@@ -8,13 +9,18 @@ exports.fetch_users = async function (req, res, next) {
 
         res.status(200).json({
             success: "true",
-            message: fetchUserQuery.length == 0 ? "There is no User to Fetch" : "Fetch user Successful",
-            NumberOfUser:fetchUserQuery.length,
+            message: fetchUserQuery.rows.length == 0 ? "There is no User to Fetch" : "Fetch user Successful",
+            NumberOfUser: fetchUserQuery.rows.length,
             User: fetchUserQuery.rows.map((user) => ({
+                userId:user.id,
                 firstName: user.firstname,
                 lastName: user.lastname,
                 email: user.email,
-                phone: user.phone
+                phone: user.phone,
+                about:user.about,
+                role:user.role,
+                team:user.team,
+                status:user.status
             }))
         })
 
@@ -28,8 +34,59 @@ exports.fetch_users = async function (req, res, next) {
 
 }
 
-exports.user_signup = async function (req, res, next) {
+exports.fetch_user_byId = async (req, res, next) => {
+    const { userId } = req.params;
 
+    try {
+        const searchUserById = await client.query(
+            `SELECT * FROM users WHERE id = $1`,
+            [userId]
+        );
+
+        if (searchUserById.rowCount === 0) {
+            return res.status(404).json({
+                success: false,
+                message: `User not Found with ID:${userId}`
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: "user Found Successfully",
+            userInfo: searchUserById.rows[0]
+        })
+    } catch (error) {
+        console.log("Error finding user with ID:", userId);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
+// Example using Express.js
+exports.getUsersInBulk = async (req, res) => {
+    const { ids } = req.body;
+
+    if (!Array.isArray(ids)) {
+        return res.status(400).json({ message: "IDs must be an array." });
+    }
+
+    try {
+        const users = await client.query(
+            `SELECT id, firstname, lastname, email FROM users WHERE id = ANY($1)`,
+            [ids]
+        );
+
+        res.json({ users: users.rows });
+    } catch (error) {
+        console.error("Error fetching users in bulk:", error);
+        res.status(500).json({ message: "Server error fetching users" });
+    }
+};
+
+
+exports.user_signup = async function (req, res, next) {
     const { firstName, lastName, phone, email, password } = req.body;
     try {
         const existingUserQuery = await client.query('SELECT * FROM users where email= $1 or phone= $2', [email, phone])
@@ -80,7 +137,6 @@ exports.user_signin = async function (req, res, next) {
             [identifier, identifier]
         );
 
-        // Check if any user was found
         if (existingUserQuery.rows.length === 0) {
             return res.status(404).json({
                 success: "false",
@@ -90,8 +146,14 @@ exports.user_signin = async function (req, res, next) {
 
         const user = existingUserQuery.rows[0];
 
-        // Compare the provided password with the stored hashed password
         const passwordMatched = await bcrypt.compare(password, user.password);
+
+        const payload = {
+            id: user.id,
+            email: user.email,
+            firstName: user.firstname,
+            lastName: user.lastname
+        }
 
         if (!passwordMatched) {
             return res.status(401).json({
@@ -100,17 +162,20 @@ exports.user_signin = async function (req, res, next) {
             });
         }
 
+        const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1y" })
+
 
         res.status(200).json({
             success: "true",
             message: "Login successful",
             user: {
                 id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
+                firstName: user.firstname,
+                lastName: user.lastname,
                 phone: user.phone,
                 email: user.email
-            }
+            },
+            token: accessToken
         });
 
     } catch (error) {
