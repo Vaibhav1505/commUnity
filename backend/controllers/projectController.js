@@ -13,7 +13,7 @@ exports.fetch_project = async (req, res) => {
                 title: project.project_title,
                 company: project.project_company,
                 completion: project.completion,
-                assignedTo:project.assigned_to,
+                assignedTo: project.assigned_to,
                 status: project.status,
                 startDate: project.startdate,
                 endDate: project.enddate,
@@ -101,3 +101,40 @@ exports.create_project = async (req, res, next) => {
         })
     }
 }
+
+exports.get_project_chats_history = async (req, res, next) => {
+    const { projectId } = req.body;
+
+    try {
+        const query = `SELECT * FROM message WHERE projectid=$1`
+
+    
+        const chatHistoryResponse = await client.query(query, [projectId]);
+        
+
+        if (chatHistoryResponse.rows.length === 0) {
+            return res.status(200).json({
+                success: false,
+                message: "No Chat Fonud"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            message: "Messages retrieved successful",
+            messages: chatHistoryResponse.rows.map((message) => ({
+                content: message.messagecontent,
+                senderId: message.senderid,
+                createdat:message.createdat
+            }))
+        })
+    } catch (error) {
+        console.log("Error in fetching Project Chat History", error.message);
+        res.status(404).json({
+            success: false,
+            message: "Error in fetching Chats",
+            error: error.message
+        })
+    }
+}
+
+

@@ -7,29 +7,32 @@ import { FETCH_USER_BY_ID } from "../../utils/apiStrings";
 
 
 export default function Dashboard() {
-
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
     const [userData, setUser] = useState({});
 
-    useEffect(() => { loadUserData() }, [])
+    useEffect(() => { loadUserData() }, []);
 
     const loadUserData = async () => {
         try {
-            const userId = await localStorage.getItem('userId');
-            const response = await getUserDetail(FETCH_USER_BY_ID(userId))
+            const userId = localStorage.getItem('userId');
+            const response = await getUserDetail(FETCH_USER_BY_ID(userId));
             setUser(response);
         } catch (error) {
-            console.log("Unable to get User Details:", error.message)
-            setError(error.message)
+            setError("Unable to load user details.");
         }
-    }
+    };
 
-    return <div className="flex">
-        <div className="sticky h-full ">
-            <DashboradNavigation data={userData}></DashboradNavigation>
+    return (
+        <div className="flex h-screen">
+            <aside className="sticky top-0 h-screen">
+                <DashboradNavigation data={userData} />
+            </aside>
+            <main className="flex-1 bg-black overflow-y-auto">
+                {error && (
+                    <div className="bg-red-600 text-white p-2">{error}</div>
+                )}
+                <Outlet />
+            </main>
         </div>
-        <div className="w-full h-screen bg-black">
-            <Outlet />
-        </div>
-    </div>
+    );
 }

@@ -27,7 +27,6 @@ export default function EventMeetingDetail() {
     const fetchMeetingDetails = async () => {
         try {
             const response = await getMeetingDetails(`${FETCH_MEETING_DETAIL(eventId)}`);
-            // console.log("ResponseData:", response.data)
             setResponse(response.data.meetingInfo)
         } catch (error) {
             console.log("There is an Error getting MeetingDetails")
@@ -87,9 +86,9 @@ export default function EventMeetingDetail() {
 
 
                     {/* TAB CONTENT */}
-                    <div className='flex-grow overflow-hidden'>
+                    <div className='flex-grow overflow-hidden bg-black'>
                         {
-                            selected === 'Chat' && <EventChat />
+                            selected === 'Chat' && <EventChat meetintId={eventId} />
                         }
 
                         {

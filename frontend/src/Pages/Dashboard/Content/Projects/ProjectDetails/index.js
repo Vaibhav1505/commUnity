@@ -86,7 +86,7 @@ export default function ProjectDetails() {
             {/*TAB CONTENT */}
             <div className='flex-grow'>
                 {
-                    selected === 'Chat' && <ProjectChat />
+                    selected === 'Chat' && <ProjectChat projectId={projectId}/>
                 }
 
                 {

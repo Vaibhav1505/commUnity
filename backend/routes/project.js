@@ -10,4 +10,7 @@ router.get('/:projectId', verifyAccessToken, projectController.fetch_project_ByI
 
 router.post('/create', verifyAccessToken, projectController.create_project);
 
+router.post('/getMessageHistory', verifyAccessToken, projectController.get_project_chats_history)
+
+
 module.exports = router;

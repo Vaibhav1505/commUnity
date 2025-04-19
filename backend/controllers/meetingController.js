@@ -147,3 +147,38 @@ exports.delete_meeting_by_id = async (req, res, next) => {
 
 
 }
+
+exports.get_meeting_chats_history = async (req, res, next) => {
+    const { meetingId } = req.body;
+
+    try {
+        const query = `SELECT * FROM message WHERE meetingid=$1`
+
+    
+        const chatHistoryResponse = await client.query(query, [meetingId]);
+        
+
+        if (chatHistoryResponse.rows.length === 0) {
+            return res.status(200).json({
+                success: false,
+                message: "No Chat Fonud"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            message: "Messages retrieved successful",
+            messages: chatHistoryResponse.rows.map((message) => ({
+                content: message.messagecontent,
+                senderId: message.senderid,
+                createdat:message.createdat
+            }))
+        })
+    } catch (error) {
+        console.log("Error in fetching Meeting Chat History", error.message);
+        res.status(404).json({
+            success: false,
+            message: "Error in fetching Chats",
+            error: error.message
+        })
+    }
+}

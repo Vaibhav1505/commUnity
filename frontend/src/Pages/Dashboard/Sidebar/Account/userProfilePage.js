@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { FETCH_USER_BY_ID } from "../../../../utils/apiStrings";
 import getUserDetail from "../../../../backendRequest/getUserDetail";
 import ToolTipIconButtonComponent from "../../../../components/tooltipButtonComponent";
+import AddUserIcon from "../../../../assets/icons/userAddIcon";
 
 export default function UserProfile() {
     const { userId } = useParams();
@@ -45,7 +46,7 @@ export default function UserProfile() {
                                 <p className="text-lightGray font-semibold text-xl">{userData.email}</p>
                                 <p className="text-lightGray font-semibold text-xl">{userData.phone}</p>
                             </div>
-                            
+
                         </div>
 
                         <div className="space-y-5">
@@ -68,13 +69,16 @@ export default function UserProfile() {
                         </div>
                     </div>
                 </CardBody>
-                <CardFooter className="flex justify-between items-center">
-                <div className="flex justify-center space-x-4">
-                                <LinkedInIcon color="blue" className="text-blue-500 hover:text-blue-700" />
-                                <InstagramIcon className="text-pink-500 hover:text-pink-700" />
-                                <TwitterIcon className="text-blue-400 hover:text-blue-600" />
-                                <FacebookIcon className="text-blue-600 hover:text-blue-800" />
-                            </div>
+                <CardFooter className="flex justify-between">
+                    <div className="flex space-x-4">
+                        <Button isIconOnly size="lg" className="bg-primary"><LinkedInIcon /></Button>
+                        <Button isIconOnly size="lg" className="bg-primary"><InstagramIcon /></Button>
+                        <Button isIconOnly size="lg" className="bg-primary"><TwitterIcon /></Button>
+                        <Button isIconOnly size="lg" className="bg-primary"><FacebookIcon /></Button>
+                    </div>
+                    <Tooltip content="Add another ccount">
+                        <Button isIconOnly size="lg" className="bg-primary"><AddUserIcon /></Button>
+                    </Tooltip>
                 </CardFooter>
             </Card>
         </div>

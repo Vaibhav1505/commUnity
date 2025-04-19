@@ -32,9 +32,13 @@ export const CREATE_MEETING = `${BASE_URL}meetings/create`
 
 export const DELETE_MEETING = `${BASE_URL}meetings/delete`
 
+export const FETCH_MEETING_CHAT_HISTORY=  `${BASE_URL}meetings/getMessageHistory`
+
 //PROJECT RELATED ROUTES
 
 export const FETCH_PROJECTS = `${BASE_URL}project`
 
 export const FETCH_PROJECT_DETAILS = (projectId) => `${BASE_URL}project/${projectId}`
+
+export const FETCH_PROJECT_CHAT_HISTORY= `${BASE_URL}project/getMessageHistory`
 

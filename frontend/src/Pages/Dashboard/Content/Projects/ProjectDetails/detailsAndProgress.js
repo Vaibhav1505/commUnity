@@ -28,9 +28,6 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import AddUserIcon from "../../../../../assets/icons/userAddIcon";
-import AddParticipantModal from "../../../../../components/AddParticipantModal";
-import AddParticipantDrawer from "../../../../../components/AddParticipantDrawer";
 
 ChartJS.register(
     CategoryScale,
@@ -152,10 +149,10 @@ export default function ProjectDetailAndProgress({ data }) {
 
 
     return (
-        <div className="p-5 flex  space-x-2 bg-black">
-            <div className="w-1/3 space-y-5">
+        <div className="p-5 flex  space-x-6 bg-black">
+            <div className="w-2/5 space-y-5">
                 {/* OVERVIEW */}
-                <Card className="bg-gray ">
+                <Card className="bg-gray p-5">
                     <CardHeader>
                         <div className="flex items-center space-x-2">
                             <RupeeIcon color="white" />
@@ -168,18 +165,19 @@ export default function ProjectDetailAndProgress({ data }) {
                 </Card>
 
                 {/* PROGRESS */}
-                <Card className="bg-gray flex py-5 px-3">
+                <Card className="bg-gray flex py-5 px-3 justify-center items-center">
                     <Progress
-                        className=" text-white font-semibold text-lg"
+                        className="text-white font-semibold text-lg"
                         color="primary"
-                        formatOptions={{ style: "percent", }}
-                        label="Completion"
+                        formatOptions={{ style: "percent" }}
+                        label={`Completion: ${data.completion || 0}%`}
                         maxValue={100}
-                        showValueLabel={true}
+                        showValueLabel={false}
                         size="md"
                         value={data.completion || 0}
                     />
-                </Card>... {/* HOSTED BY AND DURATION */}
+                </Card>
+                ... {/* HOSTED BY AND DURATION */}
                 <Card className="bg-gray  py-5 px-3 space-y-5">
                     <div className="flex items-center justify-between">
                         <p className="text-white font-semibold text-lg">Parent Company</p>
@@ -239,8 +237,8 @@ export default function ProjectDetailAndProgress({ data }) {
                             <GroupIcon color={"white"}></GroupIcon>
                             <p className="text-white font-semibold text-lg">Participants</p>
                         </div>
-                        
-                        <AddParticipantDrawer/>
+
+
                     </CardHeader>
                     <CardBody>
                         {Array.isArray(participantsList) && participantsList.length > 0 ? (
@@ -254,7 +252,7 @@ export default function ProjectDetailAndProgress({ data }) {
             </div>
 
             {/* PARTICIPANTS */}
-            <div className="w-1/2">
+            <div className="w-3/5 p-4 bg-gray-dark roudned-lg">
                 <Line data={chartData} options={chartOptions} />
             </div>
         </div>
