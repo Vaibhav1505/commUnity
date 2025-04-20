@@ -8,6 +8,7 @@ import CalenderIcon from "../assets/icons/calenderIcons";
 import DeleteIcon from "../assets/icons/deleteIcon";
 import axiosInstance from "../helpers/axiosInstance";
 import getUsers from "../backendRequest/getUsers";
+import createTask from "../backendRequest/createTask";
 
 
 export default function TaskModalComponent({ isOpen, onOpenChange }) {
@@ -49,7 +50,7 @@ export default function TaskModalComponent({ isOpen, onOpenChange }) {
         };
 
         try {
-            const response = await axiosInstance.post(CREATE_TASK, taskData);
+            const response = await createTask(CREATE_TASK, taskData);
             if (response.status >= 200 && response.status < 300) {
                 console.log("Task Created:", response.data);
                 resetForm();

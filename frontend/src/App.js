@@ -11,6 +11,7 @@ import TeamsPage from './Pages/Dashboard/Teams/teamsPage';
 import UserProfile from './Pages/Dashboard/Sidebar/Account/userProfilePage';
 import EventMeetingDetail from './Pages/Dashboard/Content/EventMeeting/Events/EventDetail.js/index.js';
 import ProjectDetails from './Pages/Dashboard/Content/Projects/ProjectDetails/index.js';
+import ChatPage from './Pages/Dashboard/Chat/index.js';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path=':projectId' element={<ProjectDetails />} />
         </Route>
         <Route path='teams' element={<TeamsPage />} />
+        <Route path='chats' element={<ChatPage/>}/>
         <Route path='userDetail/:userId' element={<UserProfile />} />
       </Route>
 

@@ -1,4 +1,4 @@
-import { Badge, Button } from "@nextui-org/react";
+import { Badge, Button, Tooltip } from "@nextui-org/react";
 import SearchIcon from "../../../assets/icons/searchIcon";
 import GroupIcon from "../../../assets/icons/groupIcon";
 import ChatIcon from "../../../assets/icons/chatIcon";
@@ -25,10 +25,13 @@ export default function DashboradNavigation({ data }) {
 
     return <div className="bg-black flex justify-between items-center py-5 space-y-5 overflow-hidden flex-col w-20 h-screen border-r-2 border-gray-200">
         <div className="flex flex-col items-center space-y-5">
+
+            <Tooltip content="Dashboard" placement="right" className="bg-black text-white">
             <Button isIconOnly size="lg" className="bg-gray hover:bg-primary text-white" onClick={() => {
                 navigate('/dashboard')
             }}>{<HomeIcon></HomeIcon>}
             </Button>
+            </Tooltip>
 
             <Button isIconOnly size="lg" onClick={() => {
                 setIsSearchModalOpen(true)
@@ -42,26 +45,34 @@ export default function DashboradNavigation({ data }) {
                 onOpenChange={setIsSearchModalOpen}>
             </SearchModal>
 
-            <Button isIconOnly
-                size="lg" className="bg-gray hover:bg-primary text-white"
-                onClick={() => {
-                    navigate('/dashboard/teams')
-                }}>{<GroupIcon></GroupIcon>}
-            </Button>
+            <Tooltip content="Teams" placement="right" className="bg-black text-white">
+                <Button isIconOnly
+                    size="lg" className="bg-gray hover:bg-primary text-white"
+                    onClick={() => {
+                        navigate('/dashboard/teams')
+                    }}>{<GroupIcon></GroupIcon>}
+                </Button>
+            </Tooltip>
 
-            <Button
-                isIconOnly
-                size="lg"
-                className="bg-gray hover:bg-primary text-white">
-                {<ChatIcon></ChatIcon>}
-            </Button>
+            <Tooltip content="Chat" placement="right" className="bg-black text-white">
+                <Button
+                    isIconOnly
+                    size="lg"
+                    className="bg-gray hover:bg-primary text-white"
+                    onClick={() => { navigate('/dashboard/chats') }}
+                >
+                    {<ChatIcon></ChatIcon>}
+                </Button>
+            </Tooltip>
 
-            <Button
-                isIconOnly
-                size="lg"
-                className="bg-gray hover:bg-primary text-white">
-                {<PhoneIcon color="white"></PhoneIcon>}
-            </Button>
+            <Tooltip content="Call" placement="right" className="bg-black text-white">
+                <Button
+                    isIconOnly
+                    size="lg"
+                    className="bg-gray hover:bg-primary text-white">
+                    {<PhoneIcon color="white"></PhoneIcon>}
+                </Button>
+            </Tooltip>
 
             <ToolTipIconButtonComponent
                 size="lg" tooltipContent={"Mail"}

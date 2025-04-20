@@ -74,7 +74,16 @@ exports.create_project = async (req, res, next) => {
         enddate
     } = req.body;
 
-    const insertQuery = `INSERT INTO projects (project_title,project_description,assign_to,completion,status,budget,startdate,enddate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+    const insertQuery = `INSERT INTO projects 
+    (project_title,
+    project_description,
+    assign_to,
+    completion
+    ,status,
+    budget,
+    startdate,
+    enddate) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
     const values = [project_title,
         project_company,
         assigned_to = [],
@@ -108,9 +117,9 @@ exports.get_project_chats_history = async (req, res, next) => {
     try {
         const query = `SELECT * FROM message WHERE projectid=$1`
 
-    
+
         const chatHistoryResponse = await client.query(query, [projectId]);
-        
+
 
         if (chatHistoryResponse.rows.length === 0) {
             return res.status(200).json({
@@ -124,7 +133,7 @@ exports.get_project_chats_history = async (req, res, next) => {
             messages: chatHistoryResponse.rows.map((message) => ({
                 content: message.messagecontent,
                 senderId: message.senderid,
-                createdat:message.createdat
+                createdat: message.createdat
             }))
         })
     } catch (error) {

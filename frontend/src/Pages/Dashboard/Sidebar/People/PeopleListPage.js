@@ -20,9 +20,13 @@ import PhoneIcon from "../../../../assets/icons/phoneIcon";
 import VideoCallIcon from "../../../../components/videoCallIcon";
 import MailIcon from "../../../../assets/icons/mailIcon";
 import FilterHorizontal from "../../../../assets/icons/filterHorizontal";
+import ChevronLeft from "../../../../assets/icons/chevronLeft";
+import { useNavigate } from "react-router-dom";
 
 export default function PeopleListPage() {
     const [data, setData] = useState([]);
+
+    const navigate= useNavigate();
 
     const renderCell = React.useCallback((user, columnKey) => {
         const cellValue = user[columnKey];
@@ -119,7 +123,7 @@ export default function PeopleListPage() {
                 const responseData = response.data;
                 if (responseData.success === "true") {
                     const adjustedData = responseData.User.map((user) => ({
-                        id:user.userId,
+                        id: user.userId,
                         name: `${user.firstName} ${user.lastName}`,
                         role: user.role,
                         team: user.team,
@@ -140,7 +144,10 @@ export default function PeopleListPage() {
     return (
         <div className="p-5">
             <div className="flex justify-between w-full py-3 items-center">
-                <p className="text-white font-bold text-3xl">Connections</p>
+                <div className="flex items-center">
+                    <Button isIconOnly className="bg-transparent" onClick={() => navigate(-1)}><ChevronLeft /></Button>
+                    <p className="text-white font-bold text-3xl">Connections</p>
+                </div>
                 <div className="flex space-x-3 w-1/2 items-center">
                     <Input
                         className=""

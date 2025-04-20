@@ -5,13 +5,14 @@ import PhoneIcon from "../../../../../../assets/icons/phoneIcon";
 import { useEffect, useState } from "react";
 import getMeetingDetails from '../../../../../../backendRequest/getMeetingDetails'
 import { FETCH_MEETING_DETAIL } from "../../../../../../utils/apiStrings";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import ChatIcon from "../../../../../../assets/icons/chatIcon";
 import InformationIcon from "../../../../../../assets/icons/informationIcon";
 import DocumentIcon from "../../../../../../assets/icons/documentIcon";
 import EventChat from "./chat";
 import EventInformation from "./information";
 import EventFiles from "./file";
+import ChevronLeft from "../../../../../../assets/icons/chevronLeft";
 
 export default function EventMeetingDetail() {
 
@@ -19,6 +20,8 @@ export default function EventMeetingDetail() {
     const eventId = searchParams.get("meetingId")
     const [response, setResponse] = useState({});
     const [selected, setSelected] = useState("Chat")
+
+    const navigate= useNavigate();
 
     useEffect(() => {
         fetchMeetingDetails()
@@ -41,9 +44,13 @@ export default function EventMeetingDetail() {
 
                     {/* Header */}
                     <div className="flex justify-between border-b-2 p-5 items-center bg-black">
-                        <div>
-                        <p className="text-2xl font-bold text-white">{response.meeting_title}</p>
-                        <p className="text-sm text-lightGray">Event and Meeting Details</p>
+                        <div className="flex items-center">
+                            <Button isIconOnly className="bg-transparent" onClick={() => navigate(-1)}><ChevronLeft /></Button>
+
+                            <div>
+                                <p className="text-2xl font-bold text-white">{response.meeting_title}</p>
+                                <p className="text-sm text-lightGray">Event and Meeting Details</p>
+                            </div>
                         </div>
                         <Tabs
                             size="lg"

@@ -5,7 +5,6 @@ import ProjectListtile from "../../../../components/projectListTile";
 import { useNavigate } from "react-router-dom";
 import { FETCH_PROJECTS } from "../../../../utils/apiStrings";
 import getProjects from "../../../../backendRequest/getProjects";
-import ProjectCreationModal from "../../../../components/projectCreationModal";
 
 
 export default function ProjectCard() {

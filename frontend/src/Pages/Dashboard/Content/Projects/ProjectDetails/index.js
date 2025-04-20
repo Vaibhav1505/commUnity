@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import getProjectDetails from "../../../../../backendRequest/getProjectDetails";
 import { FETCH_PROJECT_DETAILS } from "../../../../../utils/apiStrings";
 import { Button, Tab, Tabs } from "@nextui-org/react";
@@ -11,6 +11,7 @@ import PhoneIcon from "../../../../../assets/icons/phoneIcon";
 import ProjectChat from "./chat";
 import ProjectDetailAndProgress from "./detailsAndProgress";
 import ProjectFiles from "./files";
+import ChevronLeft from "../../../../../assets/icons/chevronLeft";
 
 
 
@@ -20,6 +21,8 @@ export default function ProjectDetails() {
     const [projectData, setProjectData] = useState({});
     const [error, setError] = useState('')
     const [selected, setSelected] = useState("Chat")
+
+    const navigate = useNavigate();
 
 
     useEffect(
@@ -40,9 +43,13 @@ export default function ProjectDetails() {
     return <div className="flex bg-black">
         <div className="flex flex-col w-full">
             <div className="flex justify-between border-b-2 px-5 py-3 items-center">
-                <div>
-                    <p className="text-2xl font-bold text-white">{projectData.project_title}</p>
-                    <p className="text-lightGray text-sm">Project Details</p>
+                <div className="flex items-center">
+
+                    <Button isIconOnly className="bg-transparent" onClick={() => navigate(-1)}><ChevronLeft /></Button>
+                    <div>
+                        <p className="text-2xl font-bold text-white">{projectData.project_title}</p>
+                        <p className="text-lightGray text-sm">Project Details</p>
+                    </div>
                 </div>
                 <Tabs
                     size="lg"
@@ -86,11 +93,11 @@ export default function ProjectDetails() {
             {/*TAB CONTENT */}
             <div className='flex-grow'>
                 {
-                    selected === 'Chat' && <ProjectChat projectId={projectId}/>
+                    selected === 'Chat' && <ProjectChat projectId={projectId} />
                 }
 
                 {
-                    selected === 'detailProgress' && <ProjectDetailAndProgress data={ projectData} />
+                    selected === 'detailProgress' && <ProjectDetailAndProgress data={projectData} />
                 }
 
                 {

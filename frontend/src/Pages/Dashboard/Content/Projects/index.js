@@ -25,7 +25,9 @@ import FilterIcon from "../../../../assets/icons/filterIcon";
 import AddFiles from "../../../../assets/icons/addFileIcon";
 import getProjects from "../../../../backendRequest/getProjects";
 import getParticipants from "../../../../backendRequest/getParticipants";
-import ProjectCreationModal from "../../../../components/projectCreationModal";
+import CreationDrawer from "../../../../globalComponent/creationDrawer";
+import ProjectCreationDrawer from "../../../../components/ProjectCreationDrawer";
+import ChevronLeft from "../../../../assets/icons/chevronLeft";
 
 export default function ProjectListPage() {
     const [data, setData] = useState([]);
@@ -73,7 +75,7 @@ export default function ProjectListPage() {
                                             }}
                                             description={participant.email}
                                             name={`${participant.firstname} ${participant.lastname}`}
-                                        />} 
+                                        />}
                                         placement="bottom">
                                         <Avatar
                                             key={userId}
@@ -86,7 +88,7 @@ export default function ProjectListPage() {
                                         />
                                     </Tooltip>
                                 ) : (
-                                    <span key={userId}>Loading...</span> 
+                                    <span key={userId}>Loading...</span>
                                 );
                             })
                         ) : (
@@ -181,7 +183,7 @@ export default function ProjectListPage() {
                 return acc;
             }, {});
 
-            setParticipantsList(usersById); 
+            setParticipantsList(usersById);
             setIsLoading(false);
         } catch (error) {
             console.error("Error Getting Project Participants:", error.message);
@@ -197,7 +199,11 @@ export default function ProjectListPage() {
         <div className="dark:bg-black p-5">
             {/* Header */}
             <div className="flex items-center justify-between py-3">
-                <p className="text-white text-3xl font-bold">All Projects</p>
+                <div className="flex items-center">
+                    <Button isIconOnly className="bg-transparent" onClick={() => navigate(-1)}><ChevronLeft /></Button>
+
+                    <p className="text-white text-3xl font-bold">All Projects</p>
+                </div>
                 <div className="space-x-3">
                     <Button
                         className="bg-primary text-white font-semibold"
@@ -205,15 +211,7 @@ export default function ProjectListPage() {
                     >
                         Apply Filters
                     </Button>
-                    <Button
-                        onClick={onOpen}
-                        className="bg-primary text-white font-semibold"
-                        endContent={<AddFiles />}
-                    >
-                        Add Project
-                    </Button>
-                    <ProjectCreationModal></ProjectCreationModal>
-
+                    <ProjectCreationDrawer />
                 </div>
             </div>
 
@@ -257,7 +255,6 @@ export default function ProjectListPage() {
                     </TableBody>
                 </Table>
             )}
-            
         </div>
     );
 }
