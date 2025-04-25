@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:5001/'
+export const BASE_URL = 'http://localhost:5001/';
 
 //USER RELATED ROUTES
 
@@ -34,11 +34,16 @@ export const DELETE_MEETING = `${BASE_URL}meetings/delete`
 
 export const FETCH_MEETING_CHAT_HISTORY=  `${BASE_URL}meetings/getMessageHistory`
 
+export const UPLOAD_FILE_IN_MEETING= `${BASE_URL}meetings/uploadFile`
+
 //PROJECT RELATED ROUTES
 
 export const FETCH_PROJECTS = `${BASE_URL}project`
 
 export const FETCH_PROJECT_DETAILS = (projectId) => `${BASE_URL}project/${projectId}`
 
-export const FETCH_PROJECT_CHAT_HISTORY= `${BASE_URL}project/getMessageHistory`
+export const FETCH_PROJECT_CHAT_HISTORY= `${BASE_URL}project/getMessageHistory`;
+    
+export const UPLOAD_FILE_IN_PROJECT= `${BASE_URL}project/uploadFile`;
+
 

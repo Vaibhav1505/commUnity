@@ -42,6 +42,9 @@ export default function PeopleListPage() {
                         className="text-white"
                         avatarProps={{
                             src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                            showFallback:true,
+                            isBordered:true,
+                            name:`${user.firstName}`
                         }}
                         description={
                             <Link isExternal href={"mailTo:" + user.email} size="sm">

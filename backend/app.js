@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 const databaseConfigs = require('./database/databaseConnection');
+const multer = require('multer')
 
 const usersRouter = require('./routes/users');
 const taskRouter = require('./routes/tasks')
@@ -51,6 +52,14 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//configuration for multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => { cb(null, 'uploads/') },
+  filename: (req, file, cb) => { cb(null, Date.now() + '-' + file.originalname) }
+})
+
+const upload = multer({ storage: storage });
 
 // Postgres Database connection
 async function initializeDatabase() {

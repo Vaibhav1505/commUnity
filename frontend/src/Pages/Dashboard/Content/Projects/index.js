@@ -75,7 +75,7 @@ export default function ProjectListPage() {
                                             }}
                                             description={participant.email}
                                             name={`${participant.firstname} ${participant.lastname}`}
-                                        />}
+                                        />} 
                                         placement="bottom">
                                         <Avatar
                                             key={userId}
@@ -88,7 +88,7 @@ export default function ProjectListPage() {
                                         />
                                     </Tooltip>
                                 ) : (
-                                    <span key={userId}>Loading...</span>
+                                    <span key={userId}>Loading...</span> 
                                 );
                             })
                         ) : (
@@ -183,7 +183,7 @@ export default function ProjectListPage() {
                 return acc;
             }, {});
 
-            setParticipantsList(usersById);
+            setParticipantsList(usersById); 
             setIsLoading(false);
         } catch (error) {
             console.error("Error Getting Project Participants:", error.message);
@@ -196,13 +196,13 @@ export default function ProjectListPage() {
     );
 
     return (
-        <div className="dark:bg-black p-5">
+        <div className="dark:bg-black p-3">
             {/* Header */}
             <div className="flex items-center justify-between py-3">
                 <div className="flex items-center">
-                    <Button isIconOnly className="bg-transparent" onClick={() => navigate(-1)}><ChevronLeft /></Button>
-
-                    <p className="text-white text-3xl font-bold">All Projects</p>
+                                        <Button isIconOnly className="bg-transparent" onClick={() => navigate(-1)}><ChevronLeft /></Button>
+                    
+                <p className="text-white text-3xl font-bold">All Projects</p>
                 </div>
                 <div className="space-x-3">
                     <Button
@@ -211,7 +211,7 @@ export default function ProjectListPage() {
                     >
                         Apply Filters
                     </Button>
-                    <ProjectCreationDrawer />
+                    <ProjectCreationDrawer/>
                 </div>
             </div>
 

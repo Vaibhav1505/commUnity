@@ -95,7 +95,7 @@ export default function EventMeetingDetail() {
                     {/* TAB CONTENT */}
                     <div className='flex-grow overflow-hidden bg-black'>
                         {
-                            selected === 'Chat' && <EventChat meetintId={eventId} />
+                            selected === 'Chat' && <EventChat />
                         }
 
                         {

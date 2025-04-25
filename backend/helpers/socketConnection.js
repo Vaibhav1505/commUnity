@@ -1,4 +1,4 @@
-// SOCKET CONNECTION FILE
+// socketConnection.js
 const jwt = require('jsonwebtoken');
 const { client } = require('../database/databaseConnection');
 
@@ -16,13 +16,12 @@ module.exports = (io) => {
     }).on('connection', (socket) => {
         console.log('User connected', socket.decoded.id);
 
-
         socket.on('joinRoom', (roomId) => {
             socket.join(roomId);
             console.log(`User ${socket.decoded.id} joined room ${roomId}`);
-        })
+        });
 
-        socket.on("newMessage", (data) => {
+        socket.on("newMessage", async (data) => {
             const { content, meetingId, projectId } = data;
             let roomId;
             let query;
@@ -36,8 +35,7 @@ module.exports = (io) => {
                     RETURNING *;
                 `;
                 values = [socket.decoded.id, content, projectId];
-            }
-            else if (meetingId) {
+            } else if (meetingId) {
                 roomId = meetingId;
                 query = `
                     INSERT INTO message (senderid, messagecontent, meetingid, createdat)
@@ -50,25 +48,21 @@ module.exports = (io) => {
                 return;
             }
 
-            client.query(query, values)
-                .then(result => {
-                    const message = result.rows[0];
-                    io.to(roomId).emit("message", {
-                        content: message.messagecontent,
-                        senderId: message.senderid,
-                        projectId: message.projectid,
-                        meetingId: message.meetingid,
-                        timestamp: message.createdat
-                    });
-                })
-                .catch(err => {
-                    console.error("Database error:", err);
-                    socket.emit("messageError", "Failed to save message");
+            try {
+                const result = await client.query(query, values);
+                const message = result.rows[0];
+                io.to(roomId).emit("message", {
+                    content: message.messagecontent,
+                    senderId: message.senderid,
+                    projectId: message.projectid,
+                    meetingId: message.meetingid,
+                    timestamp: message.createdat
                 });
+            } catch (err) {
+                console.error("Database error:", err);
+                socket.emit("messageError", "Failed to save message");
+            }
         });
-
-
-
 
         socket.on('disconnect', () => {
             console.log('User disconnected');

@@ -74,18 +74,23 @@ export default function DashboradNavigation({ data }) {
                 </Button>
             </Tooltip>
 
-            <ToolTipIconButtonComponent
-                size="lg" tooltipContent={"Mail"}
-                icon={<MailIcon />}
-                className={"bg-gray"}>
-            </ToolTipIconButtonComponent>
+            <Tooltip content="Mail" placement="right" className="bg-black text-white">
+                <Button
+                    isIconOnly
+                    size="lg"
+                    className="bg-gray hover:bg-primary text-white">
+                    {<MailIcon/>}
+                </Button>
+            </Tooltip>
 
-            <ToolTipIconButtonComponent
-                size="lg"
-                tooltipContent={"Calender"}
-                icon={<CalenderIcon></CalenderIcon>}
-                className="bg-gray">
-            </ToolTipIconButtonComponent>
+            <Tooltip content="Calender" placement="right" className="bg-black text-white">
+                <Button
+                    isIconOnly
+                    size="lg"
+                    className="bg-gray hover:bg-primary text-white">
+                    {<CalenderIcon/>}
+                </Button>
+            </Tooltip>
         </div>
 
         <div className="flex flex-col items-center space-y-5">

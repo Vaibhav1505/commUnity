@@ -1,5 +1,5 @@
 import React from 'react';
-import LandingPage from '../../../Pages/LandingPage/landingPage';
+import LandingPage from '../../../Pages/LandingPage';
 
 const Pattern = () => {
   return (

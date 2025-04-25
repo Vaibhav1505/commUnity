@@ -122,7 +122,7 @@ exports.get_project_chats_history = async (req, res, next) => {
 
 
         if (chatHistoryResponse.rows.length === 0) {
-            return res.status(200).json({
+            return res.status(404).json({
                 success: false,
                 message: "No Chat Fonud"
             })

@@ -1,10 +1,6 @@
 import React from 'react';
 import { Card, Avatar, User, Badge, Button } from '@nextui-org/react';
 import { Link } from 'react-router-dom';
-import PhoneIcon from '../assets/icons/phoneIcon';
-import VideoCallIcon from './videoCallIcon';
-import ChatIcon from '../assets/icons/chatIcon';
-import MoreIcon from '../assets/icons/moreIcon';
 import BookmarkIcon from '../assets/icons/bookmarkIcon';
 import ToolTipIconButtonComponent from './tooltipButtonComponent';
 
@@ -15,11 +11,14 @@ const UserCard = ({ user }) => {
 
     return (
         <div className='w-full rounded-xl bg-black p-4 flex cursor-pointer items-center space-x-3 justify-between hover:bg-darkGray transition delay-50'>
-            {/* Avatar with Status Badge */}
             <div className="relative">
                 <Avatar
-                    src={user.avatar || "https://avatars.githubusercontent.com/u/30373425?v=4"} // Default avatar if not provided
+                    src={user.avatar || ""} 
                     size="md"
+                    showFallback
+                    isBordered
+                    color='primary'
+                    name={user.firstName+""+user.lastName}
                     className="border-2 border-white"
                 />
                 {/* Status Badge */}

@@ -82,7 +82,7 @@ export default function ProjectChat({ meetingId }) {
   return (
     <div className="flex flex-col h-full bg-gray-900 rounded-lg shadow-lg border border-gray-800">
       {/* Chat Messages Container */}
-      <div className="flex-grow overflow-y-auto p-5 space-y-2">
+      <div className="flex-grow overflow-y-auto p-5 mb-10 space-y-2">
         {oldChats.map((msg, index) => {
           const isCurrentUser = msg.senderId === Number(userId);
           const userDetails = userDetailsMap[msg.senderId] || {};
