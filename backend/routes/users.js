@@ -9,12 +9,14 @@ const verifyAccessToken = require('../middlewares/verifyAccessToken');
 
 router.get('/', verifyAccessToken, userController.fetch_users)
 
-router.post("/bulk", verifyAccessToken, userController.getUsersInBulk);  //helps to fetch users in buly
+router.post("/bulk", verifyAccessToken, userController.getUsersInBulk);
 
 router.get('/:userId',verifyAccessToken, userController.fetch_user_byId);
 
 router.post('/signup', userController.user_signup)
 
 router.post('/signin', userController.user_signin)
+
+router.post('/logout',verifyAccessToken,userController.user_logout);
 
 module.exports = router;

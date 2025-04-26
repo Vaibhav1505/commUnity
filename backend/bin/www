@@ -36,7 +36,7 @@ server.on('listening', onListening);
 
 const io = new Server(server, {
   cors: {
-    origin: "*", // Allow all origins (for development only)
+    origin: '*', // Allow all origins (for development only)
    
   },
   debug:true

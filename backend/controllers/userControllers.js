@@ -12,15 +12,15 @@ exports.fetch_users = async function (req, res, next) {
             message: fetchUserQuery.rows.length == 0 ? "There is no User to Fetch" : "Fetch user Successful",
             NumberOfUser: fetchUserQuery.rows.length,
             User: fetchUserQuery.rows.map((user) => ({
-                userId:user.id,
+                userId: user.id,
                 firstName: user.firstname,
                 lastName: user.lastname,
                 email: user.email,
                 phone: user.phone,
-                about:user.about,
-                role:user.role,
-                team:user.team,
-                status:user.status
+                about: user.about,
+                role: user.role,
+                team: user.team,
+                status: user.status
             }))
         })
 
@@ -186,3 +186,16 @@ exports.user_signin = async function (req, res, next) {
         });
     }
 };
+
+exports.user_logout = async function (req, res, next) {
+    res.clearCookie('token', {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === 'production',
+        path: '/'
+    })
+    res.status(200).json({
+        success: true,
+        message: "Logout Successful"
+    })
+}
