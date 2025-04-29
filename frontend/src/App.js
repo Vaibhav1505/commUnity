@@ -1,27 +1,38 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import SigninPage from './Pages/Signin-Signup/signinPage';
-import SignupPage from './Pages/Signin-Signup/signupPage';
-import PeopleListPage from './Pages/Dashboard/Sidebar/People/PeopleListPage'
+import SigninPage from './Pages/Signin-Signup/signinPage.js';
+import SignupPage from './Pages/Signin-Signup/signupPage.js';
+import PeopleListPage from './Pages/Dashboard/Sidebar/People/PeopleListPage.js'
 import Dashboard from './Pages/Dashboard/index'
-import DashboardContent from './Pages/Dashboard/Content';
-import ProjectListPage from './Pages/Dashboard/Content/Projects';
-import TeamsPage from './Pages/Dashboard/Teams/teamsPage';
-import UserProfile from './Pages/Dashboard/Sidebar/Account/userProfilePage';
+import DashboardContent from './Pages/Dashboard/Content/index.js';
+import ProjectListPage from './Pages/Dashboard/Content/Projects/index.js';
+import TeamsPage from './Pages/Dashboard/Teams/teamsPage.js';
+import UserProfile from './Pages/Dashboard/Sidebar/Account/userProfilePage.js';
 import EventMeetingDetail from './Pages/Dashboard/Content/EventMeeting/Events/EventDetail.js/index.js';
 import ProjectDetails from './Pages/Dashboard/Content/Projects/ProjectDetails/index.js';
 import ChatPage from './Pages/Dashboard/Chat/index.js';
 import LandingPage from './Pages/LandingPage/index.js';
+import ProtectedRoute from './helpers/protectedRoute.js';
 
 function App() {
 
 
   return (
     <Routes>
+
+      {/* PUBLIC ROUTES */}
       <Route path='/' element={<LandingPage />} />
       <Route path='/signin' element={<SigninPage />} />
       <Route path='/signup' element={<SignupPage />} />
-      <Route path='/dashboard' element={<Dashboard />}>
+
+
+      {/* PROTECTED ROUTES */}
+      <Route path='/dashboard'
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>}>
+
         <Route index element={<DashboardContent />} />
         <Route path='people' element={<PeopleListPage />} />
         <Route path='eventsAndMeetings' element={<EventMeetingDetail />} />

@@ -103,7 +103,7 @@ export default function EventMeetingDetail() {
                         }
 
                         {
-                            selected === 'Files' && <EventFiles />
+                            selected === 'Files' && <EventFiles projectData={response}/>
                         }
                     </div>
                 </div>

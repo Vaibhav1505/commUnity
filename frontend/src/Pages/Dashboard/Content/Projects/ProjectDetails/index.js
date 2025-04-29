@@ -101,7 +101,7 @@ export default function ProjectDetails() {
                 }
 
                 {
-                    selected === 'Files' && <ProjectFiles />
+                    selected === 'Files' && <ProjectFiles projectData={projectData} />
                 }
             </div>
         </div>

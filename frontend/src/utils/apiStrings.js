@@ -12,6 +12,8 @@ export const SIGN_UP = `${BASE_URL}users/signup`
 
 export const SIGN_IN = `${BASE_URL}users/signin`
 
+export const LOGOUT= `${BASE_URL}users/logout`
+
 //TASK RELATED ROUTES
 
 export const FETCH_TASK = `${BASE_URL}tasks`
@@ -34,7 +36,11 @@ export const DELETE_MEETING = `${BASE_URL}meetings/delete`
 
 export const FETCH_MEETING_CHAT_HISTORY=  `${BASE_URL}meetings/getMessageHistory`
 
-export const UPLOAD_FILE_IN_MEETING= `${BASE_URL}meetings/uploadFile`
+export const UPLOAD_FILE_IN_MEETING= `${BASE_URL}meetings/uploadFileInMeeting`
+
+export const FETCH_MEETING_FILES=`${BASE_URL}meetings/fetchMeetingFiles`;
+
+export const DELETE_MEETING_FILES= `${BASE_URL}meetings/deleteMeetingFile`;
 
 //PROJECT RELATED ROUTES
 
@@ -44,6 +50,12 @@ export const FETCH_PROJECT_DETAILS = (projectId) => `${BASE_URL}project/${projec
 
 export const FETCH_PROJECT_CHAT_HISTORY= `${BASE_URL}project/getMessageHistory`;
     
-export const UPLOAD_FILE_IN_PROJECT= `${BASE_URL}project/uploadFile`;
+export const UPLOAD_FILE_IN_PROJECT= `${BASE_URL}project/uploadedFileInProject`;
+
+export const FETCH_PROJECT_FILES=`${BASE_URL}project/fetchProjectFiles`;
+
+export const DELETE_PROJECT_FILES=`${BASE_URL}project/deleteProjectFile`
+
+
 
 

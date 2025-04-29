@@ -159,7 +159,7 @@ export default function EventInformation({ data }) {
                             <GroupIcon color={"white"}></GroupIcon>
                             <p className="text-white font-semibold text-lg">Participants</p>
                         </div>
-                        <Button isIconOnly className="bg-primary"><AddUserIcon/></Button>
+                        {/* <Button isIconOnly className="bg-primary"><AddUserIcon/></Button> */}
                     </CardHeader>
                     <CardBody>
                         {Array.isArray(participantsList) && participantsList.length > 0 ? (

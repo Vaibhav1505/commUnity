@@ -3,10 +3,24 @@ import UserIcon from "../../../../assets/icons/userIcon"
 import SettingIcon from "../../../../assets/icons/settingIcon"
 import LogoutIcon from "../../../../assets/icons/logoutIcon"
 import { Link, replace, useNavigate } from "react-router-dom"
+import UserLogout from "../../../../backendRequest/userLogout"
+import { LOGOUT } from "../../../../utils/apiStrings"
 
-export default function AccountPopoverContent({PopoverContentData}) {
+export default function AccountPopoverContent({ PopoverContentData }) {
 
     const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+          await UserLogout(LOGOUT);
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("userId");
+          navigate('/');
+          window.location.reload();
+        } catch (error) {
+          console.log(error);
+        }
+      }
 
     return <PopoverContent className="bg-gray space-y-5">
 
@@ -18,14 +32,14 @@ export default function AccountPopoverContent({PopoverContentData}) {
                     <p className=" font-semibold text-white">{PopoverContentData.email}</p>
                     <Link className="text-green-500">+91 {PopoverContentData.phone}</Link>
                 </div>
-                
+
             </div>
         </div>
-        
+
         <Card className="w-full space-y-2 p-2 bg-transparent">
             <Button className="bg-black hover:bg-primary text-white" onClick={() => { navigate(`/dashboard/userDetail/${PopoverContentData.id}`,) }} fullWidth startContent={<UserIcon></UserIcon>}>My Profile</Button>
             <Button className="bg-black hover:bg-primary text-white" fullWidth startContent={<SettingIcon></SettingIcon>}>Account settings</Button>
-            <Button className="bg-black hover:bg-danger text-white" fullWidth startContent={<LogoutIcon></LogoutIcon>}>Signout</Button>
+            <Button className="bg-black hover:bg-danger text-white" onClick={handleLogout} fullWidth startContent={<LogoutIcon></LogoutIcon>}>Signout</Button>
         </Card>
 
     </PopoverContent>

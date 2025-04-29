@@ -1,6 +1,16 @@
-import Dashboard from "../Pages/Dashboard";
-import SigninPage from "../Pages/Signin-Signup/signinPage";
+import { useEffect } from "react";
+import GetToken from "./getToken"
+import { useNavigate } from 'react-router-dom'
 
-export default function ProtectedRoute({ isAuthenticated }) {
-    return isAuthenticated ? <Dashboard /> : <SigninPage />
-}
+export default function ProtectedRoute({ children }) {
+    const navigate = useNavigate();
+    const token = GetToken();
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/signin', { replace: true })
+        }
+    }, [token, navigate])
+
+    return token ? children : null
+};

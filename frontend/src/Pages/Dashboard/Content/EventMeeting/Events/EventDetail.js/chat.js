@@ -30,7 +30,7 @@ export default function EventChat() {
         return () => {
             cleanup();
         };
-    }, [eventId]); // Add eventId as a dependency
+    }, [eventId]);
 
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -43,6 +43,12 @@ export default function EventChat() {
                 FETCH_MEETING_CHAT_HISTORY,
                 { meetingId: eventIdNumber }
             );
+
+            if (response.status === 404 || response.data?.success === false || !Array.isArray(response.data?.messages) || response.data.messages.length === 0) {
+                setOldChats([]);
+                setNewMessage("No chats found for this meeting.");
+                return;
+            }
             const responseData = response.data;
 
             const messages = Array.isArray(responseData.messages) ? responseData.messages : [];
@@ -77,8 +83,6 @@ export default function EventChat() {
                     senderId: Number(userId),
                     createdat: new Date().toISOString()
                 };
-
-                setOldChats((prevChats) => [...prevChats, messageObject]);
 
                 sendMessage({
                     meetingId: eventId,

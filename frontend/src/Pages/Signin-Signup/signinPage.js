@@ -30,16 +30,9 @@ export default function SigninPage() {
         e.preventDefault();
         try {
             const response = await axios.post(SIGN_IN, formData);
-
-
-            const responseData = response.data;
-
-            const accessToken = responseData.token
-            const userId = responseData.user.id;
             navigate(`/dashboard`);
-            localStorage.setItem('userId', userId)
-            localStorage.setItem('accessToken', accessToken);
-            
+            localStorage.setItem('userId', response.data.user.id)
+            localStorage.setItem('accessToken', response.data.token);
 
         } catch (error) {
             if (error.response) {

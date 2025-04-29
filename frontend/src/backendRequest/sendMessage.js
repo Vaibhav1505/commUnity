@@ -8,7 +8,6 @@ const socket = io(BASE_URL, {
 });
 
 export default function sendMessage({ projectId, meetingId, content }) {
-    console.log("Sending message:", { projectId, meetingId, content });
     socket.emit("newMessage", {
         projectId: projectId,
         meetingId: meetingId,

@@ -1,27 +1,25 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 module.exports = async function verifyAccessToken(req, res, next) {
-
-    const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
-
-    try {
-        const verifiedToken = jwt.verify(token, process.env.JWT_SECRET)
-        if (verifiedToken) {
-            req.payload = verifiedToken;
-            next();
-        } else {
-            res.status(400).json({
-                status: "Unauthorized",
-                message: "Invalid Token"
-            })
-        }
-    } catch (error) {
-        console.error("There is an Error in VerifyAccessToken", error.message);
-        res.status(500).json({
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({
             success: false,
-            message: "Internal Server Error"
-        })
+            message: "Authorization header missing or malformed"
+        });
     }
 
+    const token = authHeader.split(' ')[1];
 
-}
+    try {
+        const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
+        req.payload = verifiedToken;
+        next();
+    } catch (error) {
+        console.error("JWT Verify Error:", error.message);
+        return res.status(401).json({
+            success: false,
+            message: "Invalid or expired token"
+        });
+    }
+};
