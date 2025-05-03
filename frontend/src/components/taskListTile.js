@@ -71,8 +71,6 @@ export default function TaskListTile({
             }));
 
             setParticipantsList(mappedUsers);
-
-
             setParticipantsList(users);
         } catch (error) {
             console.log("Error fetching participants:", error.message);

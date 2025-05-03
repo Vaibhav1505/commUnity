@@ -74,7 +74,7 @@ export default function TaskCard() {
                 ))
             ) : (
                 <div className="flex items-center justify-center h-full text-gray-400">
-                    <p className="text-2xl text-white font-extrabold">No Tasks Available</p> {/* Message when no users are available */}
+                    <p className="text-2xl text-white font-extrabold">No Tasks Available</p> 
                 </div>
             )}
         </CardBody>

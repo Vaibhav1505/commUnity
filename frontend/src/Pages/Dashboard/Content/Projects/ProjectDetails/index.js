@@ -74,12 +74,14 @@ export default function ProjectDetails() {
                 </Tabs>
 
                 <div className="flex space-x-3">
+                    <a href="https://meet.google.com/landing">
                     <Button
                         className="bg-primary text-white font-semibold"
                         startContent={<VideoCallIcon />}
                     >
                         Video Call
                     </Button>
+                    </a>
                     <Button
                         className="bg-primary text-white font-semibold"
                         startContent={<PhoneIcon color="white" />}

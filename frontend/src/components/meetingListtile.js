@@ -67,12 +67,12 @@ export default function MeetingListTile({ eventId, eventName, startDate, deleteF
                         tooltipContent={"Edit Meeting"}>
                     </ToolTipIconButtonComponent>
 
-                    <ToolTipIconButtonComponent
+                    {/* <ToolTipIconButtonComponent
                         className={"bg-transparent hover:bg-primary"}
                         placement='top'
                         icon={<CalenderIcon></CalenderIcon>}
                         tooltipContent={"Add meeting to Calender"}>
-                    </ToolTipIconButtonComponent>
+                    </ToolTipIconButtonComponent> */}
                 </div>
             </div>
 

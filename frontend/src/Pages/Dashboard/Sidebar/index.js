@@ -67,6 +67,7 @@ export default function DashboradNavigation({ data }) {
 
             <Tooltip content="Call" placement="right" className="bg-black text-white">
                 <Button
+                    onClick={()=>{navigate('/dashboard/call')}}
                     isIconOnly
                     size="lg"
                     className="bg-gray hover:bg-primary text-white">
@@ -76,6 +77,7 @@ export default function DashboradNavigation({ data }) {
 
             <Tooltip content="Mail" placement="right" className="bg-black text-white">
                 <Button
+                onClick={()=>{navigate('/dashboard/mail')}}
                     isIconOnly
                     size="lg"
                     className="bg-gray hover:bg-primary text-white">

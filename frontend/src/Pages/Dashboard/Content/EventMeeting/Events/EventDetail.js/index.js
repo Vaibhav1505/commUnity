@@ -75,18 +75,20 @@ export default function EventMeetingDetail() {
                         </Tabs>
 
                         <div className="flex space-x-3">
+                            <a href="https://meet.google.com/landing">
                             <Button
                                 className="bg-primary text-white font-semibold"
                                 startContent={<VideoCallIcon />}
                             >
                                 Video Call
                             </Button>
-                            <Button
+                            </a>
+                            {/* <Button
                                 className="bg-primary text-white font-semibold"
                                 startContent={<PhoneIcon color="white" />}
                             >
                                 Voice Call
-                            </Button>
+                            </Button> */}
                         </div>
                     </div>
 

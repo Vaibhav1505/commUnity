@@ -18,9 +18,9 @@ router.post('/getMessageHistory', verifyAccessToken, meetingController.get_meeti
 
 router.post('/uploadFileInMeeting', verifyAccessToken, upload.single('file'), meetingController.upload_file)
 
-router.post('/fetchMeetingFiles',verifyAccessToken,meetingController.fetch_meeting_files)
+router.post('/fetchMeetingFiles', verifyAccessToken, meetingController.fetch_meeting_files)
 
-router.post('/deleteMeetingFile',verifyAccessToken,meetingController.delete_meeting_file)
+router.post('/deleteMeetingFile', verifyAccessToken, meetingController.delete_meeting_file)
 
 
 module.exports = router;

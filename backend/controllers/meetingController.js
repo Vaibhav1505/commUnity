@@ -9,7 +9,7 @@ exports.fetch_meeting = async (req, res, next) => {
         const fetchEventQuery = await client.query('SELECT * FROM meeting')
 
         if (fetchEventQuery.rows.length == 0) {
-            res.status(404).json({
+           return res.status(404).json({
                 success: "true",
                 message: "No Events Available"
             })

@@ -205,12 +205,12 @@ export default function ProjectListPage() {
                 <p className="text-white text-3xl font-bold">All Projects</p>
                 </div>
                 <div className="space-x-3">
-                    <Button
+                    {/* <Button
                         className="bg-primary text-white font-semibold"
                         endContent={<FilterIcon />}
                     >
                         Apply Filters
-                    </Button>
+                    </Button> */}
                     <ProjectCreationDrawer/>
                 </div>
             </div>

@@ -31,7 +31,6 @@ export default function ProjectFiles({ projectData }) {
 
 
     useEffect(() => {
-        console.log("ProjectID:", projectData?.project_id)
         if (projectData?.project_id) {
             fetchProjectFiles();
         }

@@ -25,14 +25,20 @@ export default function LandingPageNavbar() {
                     </Link>
                 </NavbarItem>
                 <NavbarItem isActive>
-                    <Link
-                        href="#features"
-                        onClick={() => setSelectedNav("features")}
-                        className={`text-white hover:text-primary transition-all pb-1 ${selectedNav === "features" ? "border-b-2 border-primary" : ""
-                            }`}
-                    >
-                        Features
-                    </Link>
+                <Link
+    href="#"
+    onClick={e => {
+        e.preventDefault();
+        setSelectedNav("features");
+        const el = document.getElementById("features");
+        if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+        }
+    }}
+    className={`text-white hover:text-primary transition-all pb-1 ${selectedNav === "features" ? "border-b-2 border-primary" : ""}`}
+>
+    Features
+</Link>
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">

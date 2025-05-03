@@ -1,3 +1,4 @@
+const {heroui} = require('@heroui/theme');
 /** @type {import('tailwindcss').Config} */
 
 const {nextui} = require("@nextui-org/react");
@@ -8,6 +9,7 @@ module.exports = {
     "./src/**/*.{html,js}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/@heroui/theme/dist/components/(drawer|input-otp|modal|form).js"
   ],
   theme: {
     extend: {
@@ -31,5 +33,5 @@ module.exports = {
         }
       }
     }
-  })],
+  }),heroui()],
 }

@@ -51,7 +51,7 @@ export default function LandingPageFeature() {
 
     return (
         <div className="bg-black py-20 px-4">
-            <div className="max-w-5xl mx-auto text-center py-24 space-y-12">
+            <div id="features" className="max-w-5xl mx-auto text-center py-24 space-y-12">
                 <h2 className="text-5xl sm:text-5xl  font-extrabold text-white mb-4">
                     Everything Your Team Needs, All in One Place
                 </h2>
@@ -59,7 +59,7 @@ export default function LandingPageFeature() {
                     Unified workspace combining communication, file management, and project tools—designed for modern hybrid teams and enterprise security.
                 </p>
 
-                <Button size="lg" color="primary" endContent={<ArrowRight />}>Gets Started</Button>
+                {/* <Button size="lg" color="primary" endContent={<ArrowRight />}>Gets Started</Button> */}
             </div>
             <div className="space-y-16">
                 {features.map((feature, idx) => (
@@ -79,7 +79,7 @@ export default function LandingPageFeature() {
                         <div className="flex-1 text-center md:text-left">
                             <h3 className="text-4xl font-bold text-white mb-3">{feature.title}</h3>
                             <p className="text-lightGray text-xl mb-6">{feature.description}</p>
-                            <Button
+                            {/* <Button
                                 className="  transition-colors"
                                 color="primary"
                                 endContent={<ArrowRight className="w-4 h-4" />}
@@ -87,7 +87,7 @@ export default function LandingPageFeature() {
 
                             >
                                 <a href={feature.exploreLink}>Explore Feature</a>
-                            </Button>
+                            </Button> */}
                         </div>
                     </div>
                 ))}

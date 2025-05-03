@@ -74,10 +74,14 @@ exports.create_project = async (req, res, next) => {
         enddate
     } = req.body;
 
+    const assignedToArray = Array.isArray(assigned_to) && assigned_to.length > 0
+        ? assigned_to.map(Number)
+        : [id];
+
     const insertQuery = `INSERT INTO projects 
     (project_title,
     project_description,
-    assign_to,
+    assigned_to,
     completion
     ,status,
     budget,
@@ -86,7 +90,7 @@ exports.create_project = async (req, res, next) => {
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
     const values = [project_title,
         project_company,
-        assigned_to = [],
+        assignedToArray,
         completion,
         status,
         budget,

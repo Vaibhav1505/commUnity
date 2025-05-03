@@ -22,6 +22,7 @@ export default function CreationDrawer({ drawerTitle = "Create", children, drawe
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         placement="right"
+        shouldCloseOnInteractOutside={false}
       >
         <DrawerContent>
           {(onClose) => (

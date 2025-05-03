@@ -6,13 +6,15 @@ import PeopleListPage from './Pages/Dashboard/Sidebar/People/PeopleListPage.js'
 import Dashboard from './Pages/Dashboard/index'
 import DashboardContent from './Pages/Dashboard/Content/index.js';
 import ProjectListPage from './Pages/Dashboard/Content/Projects/index.js';
-import TeamsPage from './Pages/Dashboard/Teams/teamsPage.js';
 import UserProfile from './Pages/Dashboard/Sidebar/Account/userProfilePage.js';
 import EventMeetingDetail from './Pages/Dashboard/Content/EventMeeting/Events/EventDetail.js/index.js';
 import ProjectDetails from './Pages/Dashboard/Content/Projects/ProjectDetails/index.js';
 import ChatPage from './Pages/Dashboard/Chat/index.js';
 import LandingPage from './Pages/LandingPage/index.js';
 import ProtectedRoute from './helpers/protectedRoute.js';
+import CallPage from './Pages/Dashboard/Call/index.js';
+import MailPage from './Pages/Dashboard/Mail/index.js';
+import TeamsPage from './Pages/Dashboard/Teams/index.js';
 
 function App() {
 
@@ -42,6 +44,8 @@ function App() {
         </Route>
         <Route path='teams' element={<TeamsPage />} />
         <Route path='chats' element={<ChatPage />} />
+        <Route path='call' element={<CallPage/>}/>
+        <Route path='mail' element={<MailPage/>}/>
         <Route path='userDetail/:userId' element={<UserProfile />} />
       </Route>
 

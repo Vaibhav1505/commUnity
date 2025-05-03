@@ -13,6 +13,7 @@ const usersRouter = require('./routes/users');
 const taskRouter = require('./routes/tasks')
 const meetingRouter = require('./routes/meetings')
 const projectRouter = require('./routes/project')
+const teamRouter = require('./routes/team')
 
 var app = express();
 app.use(cors({
@@ -40,6 +41,7 @@ app.use('/users', usersRouter);
 app.use('/tasks', taskRouter);
 app.use('/meetings', meetingRouter)
 app.use('/project', projectRouter)
+app.use('/team', teamRouter)
 
 // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
 app.use(express.static(path.join(__dirname, '../frontend/build')));
